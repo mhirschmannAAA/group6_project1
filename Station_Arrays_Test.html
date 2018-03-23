@@ -1,0 +1,68 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Favorite stations</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <h1>station search</h1>
+
+    <div id="station-view"></div>
+
+    <form id="station-form">
+      <label for="station-input">Search for a station</label>
+      <input type="text" id="station-input"><br>
+
+      <input id="find-station" type="submit" value="station search">
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $("#find-station").on("click", function(event) {
+
+
+        event.preventDefault();
+
+        var station = $("#station-input").val();
+        console.log (station)
+        var queryURL = "http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=56a19e24260049d499ff8ea90f306b0d";
+        console.log (station)
+
+
+        var newArray = [];
+        var settings = {
+          "async": true,
+          "url": "http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=56a19e24260049d499ff8ea90f306b0d",
+          "method": "GET"
+        }
+
+       $.ajax(settings).done(function (response) {
+       console.log(response.length);
+       for (var i = 0; i < response.length; i++) {
+         var pushDest = newArray.indexOf(response[i]["STATION"]);
+         if (pushDest === -1) {
+           newArray.push(response[i]["STATION"]);
+         }
+       }
+       console.log("================================================");
+       console.log(newArray);
+     });
+
+
+      });
+    </script>
+  </div>
+</body>
+
+</html>
+
+
+
+
+
+
+
