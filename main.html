@@ -1,0 +1,139 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Project1</title>
+    
+    <style>
+
+    body{
+      background-color:#C0C0C0;
+    }
+
+    #mainbody{
+       background-image: url("atlanta.jpg");
+       background-size: cover;
+       display: block;
+       min-height: 700px;
+       width: 100%;
+    }
+
+    #select {
+      width: 450px;
+      margin-top: 425px;
+      margin-left: 100px;
+      padding-right: 100px;
+      border: 100px;
+    }
+
+    #nav-mobile {
+    margin-left: 50px;
+    }
+
+   #logo {
+      margin-right: 50px;
+    }
+
+    #header {
+      text-align: center;
+      font-family:'Times New Roman', Times, serif;
+      line-height: 50px;
+      font-size: 50px;
+      padding-top: 50px;
+      color: aliceblue;
+    }
+
+    p {
+    text-align: center;
+    font-size: 25px;
+     color: aliceblue;
+
+    }
+        
+    </style>
+
+  </head>
+
+  <body>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+     
+    <!--Import jQuery before materialize.js-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+   
+      <!--Link to Jquery -->
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
+    
+    <nav>
+        <div class="nav-wrapper #37474f blue-grey darken-3">
+
+         <a href="#" class="brand-logo right">C3</a>
+          
+
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="sass.html">Schedule</a></li>
+            <li><a href="badges.html">City Information</a></li>
+            <li><a href="collapsible.html">Contact Us</a></li>
+          </ul>
+        </div>
+      </nav>
+
+    <div class="container" id="mainbody">
+        <div class="row">
+           <div class="col-lg-12" id="header"> 
+           <h> Welcome to ATLANTA </h>
+          </div>
+          <p> We Connect You in Seconds </p>
+        </div>   
+        
+        <label></label>
+        <select class="browser-default" id="select">
+          <option value="" disabled selected>Select Your Destination</option>
+       
+
+        </select>
+
+        <div class="row">
+            <div class="col-lg-12" > 
+            <span id="displaynextTrain"></span>
+            <span id="displayarrivalTime"></span>
+            <span id="displayminutesAway"></span>
+
+           </div>
+         </div>   
+
+     
+    </div>
+
+    <div id="output"></div>
+
+    <script>
+
+    var stations = ["Doraville", "Airport", "Five Points"];
+
+  stations.forEach((element, index) => {
+    // console.log(id + ": " + element);
+    var newOpt = $("<option>");
+    newOpt.attr("value", element.toLowerCase());
+    newOpt.text(element);
+    $("#select").append(newOpt);
+
+  });
+
+ 
+
+    </script>
+
+  </body>
+</html>
