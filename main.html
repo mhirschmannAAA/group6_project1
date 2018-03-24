@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -29,7 +28,7 @@
 
     #select {
       width: 450px;
-      margin-top: 425px;
+      margin-top: 350px;
       margin-left: 100px;
       padding-right: 100px;
       border: 100px;
@@ -48,7 +47,7 @@
       font-family:'Times New Roman', Times, serif;
       line-height: 50px;
       font-size: 50px;
-      padding-top: 50px;
+      padding-top: 40px;
       color: aliceblue;
     }
 
@@ -56,25 +55,31 @@
     text-align: center;
     font-size: 25px;
      color: aliceblue;
-
     }
+
+    #displayTemp {
+    text-align:right;
+    font-size: 15px;
+    color: aliceblue;
+    padding-right: 40px;
+    padding-top: 20px;
+    font-weight: bold;
+    }
+
         
     </style>
 
   </head>
 
   <body>
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-     
-    <!--Import jQuery before materialize.js-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-   
-      <!--Link to Jquery -->
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
+
+     <!--Link to Jquery -->
+     <script
+     src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
     
+     <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+
     <nav>
         <div class="nav-wrapper #37474f blue-grey darken-3">
 
@@ -91,20 +96,24 @@
 
     <div class="container" id="mainbody">
         <div class="row">
-           <div class="col-lg-12" id="header"> 
-           <h> Welcome to ATLANTA </h>
-          </div>
-          <p> We Connect You in Seconds </p>
-        </div>   
+            <div class="row" id="displayTemp">
+                <div class="col-lg-12" > 
+                    <span id="tempFahr"></span>
+                </div>
+            </div>
+            <div class="col-lg-12" id="header"> 
+              <h> Welcome to ATLANTA </h>
+            </div>
+              <p> We Connect You in Seconds </p>
+            </div> 
         
         <label></label>
         <select class="browser-default" id="select">
           <option value="" disabled selected>Select Your Destination</option>
        
-
         </select>
 
-        <div class="row">
+        <div class="row" id="display">
             <div class="col-lg-12" > 
             <span id="displaynextTrain"></span>
             <span id="displayarrivalTime"></span>
@@ -113,7 +122,6 @@
            </div>
          </div>   
 
-     
     </div>
 
     <div id="output"></div>
@@ -131,6 +139,33 @@
 
   });
 
+  var APIKey = "79d67786e1c3ff629c3696cad8d187ed";
+  var queryURL2 = "https://api.openweathermap.org/data/2.5/weather?q=atlanta&appid=" + APIKey;
+
+  $.ajax({
+      url: queryURL2,
+      method: "GET"
+    }).then(function(response) {
+
+      // Create CODE HERE to Log the queryURL
+      console.log(queryURL2);
+      // Create CODE HERE to log the resulting object
+      console.log(response);
+      // Create CODE HERE to transfer content to HTML
+      $(".city").text(response.name);
+      $(".wind").text(response.wind.speed);
+      $(".humidity").text(response.main.humidity);
+
+      // Create CODE HERE to calculate the temperature (converted from Kelvin)
+      console.log(response.main.temp);
+      var temp = response.main.temp;
+      var fahr = (temp-273.15)*1.8 + 32
+      console.log(fahr);
+      $("#tempFahr").text("Current Temp " + Math.round(fahr) + " 'F");
+
+      // Hint: To convert from Kelvin to Fahrenheit: F = (K - 273.15) * 1.80 + 32
+      // Create CODE HERE to dump the temperature content into HTML
+    });
  
 
     </script>
