@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Favorite stations</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+    crossorigin="anonymous"> </link>
+</head>
+
+<body>
+  <div class="container">
+    <h1>station search</h1>
+
+    <div id="startpoint-display"></div>
+    <div id="line-display"></div>
+    <div id="time-display"></div>
+    <div id="direction-display"></div>
+    <div id="destination-display"></div>
+  
+
+    <form id="station-form">
+      <label for="station-input">Your Location</label>
+      <input type="text" id="station-input">
+      <br>
+
+      <input id="find-station" type="submit" value="station search">
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $("#find-station").on("click", function (event) {
+
+
+        event.preventDefault();
+
+        var station = $("#station-input").val().toLowerCase();
+        
+
+       
+        var queryURL = "http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=56a19e24260049d499ff8ea90f306b0d";
+        console.log(station)
+
+
+        var newArray = [];
+        var settings = {
+          "async": true,
+          "url": "http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=56a19e24260049d499ff8ea90f306b0d",
+          "method": "GET"
+        }
+
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          for (var i = 0; i < response.length; i++) {
+            if (response[i]["STATION"].toLowerCase() === station) {
+              newArray.push(response[i]);
+              $("#startpoint-display").text("Starting Point: " + station);
+              $("#line-display").text("LINE: " + response[i]["LINE"]);
+              $("#time-display").text("TIME: " + response[i]["NEXT_ARR"]);
+              $("#direction-display").text("BOUND: " + response[i]["DIRECTION"]);
+              $("#destination-display").text("Destination: " + response[i]["DESTINATION"]);
+
+            }
+
+          }
+
+        });
+
+
+
+      });
+    </script>
+  </div>
+</body>
+
+</html>
