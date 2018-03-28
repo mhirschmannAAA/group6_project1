@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>Favorite stations</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
-    crossorigin="anonymous">
+    crossorigin="anonymous"> </link>
 </head>
 
 <body>
@@ -37,7 +37,7 @@
         var station = $("#station-input").val().toLowerCase();
         
 
-        // console.log(station)
+       
         var queryURL = "http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=56a19e24260049d499ff8ea90f306b0d";
         console.log(station)
 
@@ -50,9 +50,9 @@
         }
 
         $.ajax(settings).done(function (response) {
-          console.log(response.length);
+          console.log(response);
           for (var i = 0; i < response.length; i++) {
-            if (response[i]["STATION"].toLowerCase() !== station) {
+            if (response[i]["STATION"].toLowerCase() === station) {
               newArray.push(response[i]);
               $("#startpoint-display").text("Starting Point: " + station);
               $("#line-display").text("LINE: " + response[i]["LINE"]);
@@ -61,11 +61,9 @@
               $("#destination-display").text("Destination: " + response[i]["DESTINATION"]);
 
             }
-            // var pOne = $("#station-view").text("Station: " + station);
 
           }
-          console.log("================================================");
-          console.log(newArray);
+
         });
 
 
