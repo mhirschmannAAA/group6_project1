@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Project1</title>
+    
+    <style>
+
+    body{
+      background-color:#C0C0C0;
+    }
+
+    #mainbody{
+       
+       background-image: url("images/atlanta.jpg");
+       background-size: cover;
+       display: block;
+       min-height: 700px;
+       width: 100%;
+    }
+
+    #select {
+      width: 300px;
+      margin-top: 300px;
+      margin-left: 10px;
+    }
+
+    #nav-mobile {
+    margin-left: 50px;
+    }
+
+   #logo {
+      margin-right: 50px;
+    }
+
+    #header {
+      text-align: center;
+      font-family:'Times New Roman', Times, serif;
+      line-height: 50px;
+      font-size: 50px;
+      padding-top: 40px;
+      color: aliceblue;
+    }
+
+    p {
+    text-align: center;
+    font-size: 25px;
+     color: aliceblue;
+    }
+
+    #displayTemp {
+    text-align:right;
+    font-size: 15px;
+    color: aliceblue;
+    padding-right: 40px;
+    padding-top: 20px;
+    font-weight: bold;
+    }
+
+    #label {
+        color: white;
+        font-size: 25px;
+    }
+
+    #Destination {
+        color: white;
+        font-size: 25px;
+        padding-top: 15px;
+    }
+
+    .page-footer {
+        background-color: #546e7a;
+    }
+
+    .map {
+        background-color: #546e7a;
+        color: whitesmoke;
+        width: 100px;
+        height: 30px;
+        font-weight: bold;
+    }
+
+    </style>
+
+  </head>
+
+  <body>
+
+      <!--Link to Jquery -->
+      <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
+     
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+
+
+    <h>
+        <nav>
+            <div class="nav-wrapper #37474f blue-grey darken-3">
+                <a href="#" class="brand-logo right">C3</a>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="sass.html">Schedule</a></li>
+                <li><a href="badges.html">City Information</a></li>
+                <li><a href="collapsible.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+    </h>
+
+<div class="container">
+     
+    <div class="row" id="mainbody">
+        <div class="row" id="displayTemp">
+            <span id="tempFahr"></span>
+        </div>
+
+        <header class="row" id="header">
+            <h> Welcome to ATLANTA </h>
+            <p> We Connect You in Seconds </p>
+        </header>
+
+    <div class="row" id="select">
+        <div class="input-field">
+            <input type="text" id="Destination"> 
+            <label class="active" for="name" id="label">Enter Your Destination</label>
+            <button class="btn waves-effect waves-light" id="button" type="submit" name="action">GO
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </div>
+
+    <div class="row" id="mapDiv">
+    This is the Map location
+    </div>
+
+</div>
+
+</div>
+
+    <footer class="page-footer">
+        <div class="footercontainer">
+          <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Footer Content</h5>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                </ul>
+            </div>
+            </div>
+          </div>
+        <div class="footer-copyright">
+            <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+        </div>
+
+    </footer>
+
+    <script>
+
+  $('select').material_select('destroy');
+
+
+    var stations = ["Doraville", "Airport", "Five Points"];
+
+//   stations.forEach((element, index) => {
+//     // console.log(id + ": " + element);
+//     var newOpt = $("<option>");
+//     newOpt.attr("value", element.toLowerCase());
+//     newOpt.text(element);
+//     $("#select").append(newOpt);
+//   });
+
+  var APIKey = "79d67786e1c3ff629c3696cad8d187ed";
+  var queryURL2 = "https://api.openweathermap.org/data/2.5/weather?q=atlanta&appid=" + APIKey;
+
+  $.ajax({
+      url: queryURL2,
+      method: "GET"
+    }).then(function(response) {
+
+      // Create CODE HERE to Log the queryURL
+      console.log(queryURL2);
+      // Create CODE HERE to log the resulting object
+      console.log(response);
+      // Create CODE HERE to transfer content to HTML
+      $(".city").text(response.name);
+      $(".wind").text(response.wind.speed);
+      $(".humidity").text(response.main.humidity);
+
+      // Create CODE HERE to calculate the temperature (converted from Kelvin)
+      console.log(response.main.temp);
+      var temp = response.main.temp;
+      var fahr = (temp-273.15)*1.8 + 32
+      console.log(fahr);
+      $("#tempFahr").text("Current Temp " + Math.round(fahr) + " 'F");
+
+    });
+
+    var select = $("#select");
+    var newDiv = $("<div>")
+    var showMap = $("<button>");
+    showMap.addClass("map");
+    showMap.text("View Map");
+    
+    $("#button").on("click", function() {
+    select.hide();
+    newDiv.append(showMap);
+    $("#mapDiv").append(newDiv);
+     
+    });
+ 
+    </script>
+
+  </body>
+</html>
