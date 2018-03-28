@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Train times</title>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+  <h1>Select a station</h1>
+  <form>
+    <select id="schedule" name="stations">
+      <option value="volvo">Volvo</option>
+      <option value="saab">Saab</option>
+      <option value="fiat">Fiat</option>
+      <option value="audi">Audi</option>
+    </select>
+    <button>Select</button>
+
+    <h2 id="arriving-train"> Text Here
+            <h2 id="direction"> Text Here
+
+    </h2>
+
+
+  </form>
+  <script>
+      
+    var nb = {
+      stations: [{
+          name: "Hector",
+          time: "00:03"
+        },
+        {
+          name: "Oscar",
+          time: "00:08"
+        },
+        {
+          name: "Moha",
+          time: "00:11"
+        }
+      ]
+    }
+
+
+    nb.stations.forEach((element, i) => {
+      var nOption = $("<option>");
+      nOption.attr("value", element.name);
+      nOption.text(element.name);
+      nOption.attr('data-id', i);
+      $("#schedule").append(nOption);
+
+       
+        var queryURL = "http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=56a19e24260049d499ff8ea90f306b0d";
+
+        var newArray = [];
+        var settings = {
+          "async": true,
+          "url": "http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=56a19e24260049d499ff8ea90f306b0d",
+          "method": "GET"
+        }
+
+        $.ajax(settings).done(function (response) {
+            console.log (response)
+          console.log(response);
+          for (var i = 0; i < response.length; i++) {
+            
+              newArray.push(response[i]);
+ 
+              $("#line-display").text("LINE: " + response[i]["LINE"]);
+              $("#arriving-train").text("Arriving Train: " + response[i]["NEXT_ARR"]);
+              $("#direction").text("BOUND: " + response[i]["DIRECTION"]);
+              $("#destination-display").text("Destination: " + response[i]["DESTINATION"]);
+ 
+}
+
+        });
+
+      });
+
+  </script>
+</body>
+</html>
