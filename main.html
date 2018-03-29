@@ -87,20 +87,14 @@
     }
 
     .map {
-        background-color: #546e7a;
-        color: whitesmoke;
-        width: 100px;
-        height: 30px;
-        font-weight: bold;
+        width: 425px;
+        height: 400px;
+        /* float: right; */
+        overflow: hidden;   
     }
 
     </style>
-    <script>
-            function openWin() {
-                window.open("gmap.html");
-            }
-    </script>
-
+ 
   </head>
 
   <body>
@@ -112,7 +106,7 @@
       <!-- Compiled and minified JavaScript -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
-
+    
 
     <h>
         <nav>
@@ -139,21 +133,28 @@
             <p> We Connect You in Seconds </p>
         </header>
 
+    <div class="row" id="map">
+        <div class="col 16 offset-8 s8"></div>
+            <button id="goMap">View Map</button>
+        
+        
+    </div>
+
     <div class="row" id="select">
         <div class="input-field">
             <input type="text" id="Destination"> 
             <label class="active" for="name" id="label">Enter Your Destination</label>
             <button class="btn waves-effect waves-light" id="button" type="submit" name="action">GO
-                <i class="material-icons right">send</i>
-            </button>
+                <i class="material-icons right">send</i>          
+    
         </div>
     </div>
 
     <div class="row" id="mapDiv">
     <!-- This is the Map location -->
-
+           
     </div>
-
+    
 </div>
 
 </div>
@@ -183,6 +184,22 @@
     </footer>
 
     <script>
+    
+    // Create map in an iframe when button is clicked.
+    $("button").on('click', function(e) {
+        e.preventDefault();
+
+        $('<iframe />', {
+            name: 'frame',
+            id: 'goMap',
+            src: 'gmap.html',
+            align: "right",
+            height: "400px",
+            width: "405px",
+            scrolling: "no",
+            frameborder: "0"
+        }).appendTo('#map');
+    });  
 
   $('select').material_select('destroy');
 
@@ -228,13 +245,6 @@
     var initMap = $("<button>");
     initMap.addClass("map");
     initMap.text("View Map");
-    
-    $("#button").on("click", function() {
-    select.hide();
-    newDiv.append(openWin());
-    $("#mapDiv").append(newDiv);   
-                  
-    });
 
     </script>
 
