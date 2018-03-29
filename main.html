@@ -10,12 +10,14 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="js/mapwork.js" type="text/javascript"></script>
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>Project1</title>
-    
+    <title>Group 6 - Project 1</title>
+   
     <style>
 
     body{
@@ -113,6 +115,11 @@
     }
  
     </style>
+    <script>
+            function openWin() {
+                window.open("gmap.html");
+            }
+    </script>
 
   </head>
 
@@ -292,13 +299,19 @@
 
     });
 
+    var select = $("#select");
+    var newDiv = $("<div>")
+    var initMap = $("<button>");
+    initMap.addClass("map");
+    initMap.text("View Map");
+    
+    $("#button").on("click", function() {
+    select.hide();
+    newDiv.append(openWin());
+    $("#mapDiv").append(newDiv);   
+                  
+    });
 
-   
-
-
-
-    </script>
- 
     </script>
 
   </body>
