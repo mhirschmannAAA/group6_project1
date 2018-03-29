@@ -10,7 +10,7 @@
               height: 400px;
               width: 400px;
               border: 2px solid blue;
-                           
+              overflow: hidden;      
              }
  
           </style>
@@ -26,20 +26,19 @@
         src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
    
         <div class="container">
-            <h5 class="left-align">Conference Connector</h5>
             <div id="map"></div>
            
         <script> 
         function initMap() {
             var uluru = {lat: 33.640411, lng: -84.419853};
             var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 12,
+            zoom: 11,
             center: uluru
             });
-            // var marker = new google.maps.Marker({
-            // position: uluru,
-            // map: map
-            // });
+            var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+            });
         }
         
         </script>

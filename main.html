@@ -82,25 +82,43 @@
         padding-top: 15px;
     }
 
-    .page-footer {
-        background-color: #546e7a;
+    .page-footer{
+        background-color: darkgrey;
     }
 
     .map {
-        background-color: #546e7a;
-        color: whitesmoke;
-        width: 100px;
-        height: 30px;
-        font-weight: bold;
+        width: 425px;
+        height: 400px;
+        /* float: right; */
+        overflow: hidden;   
     }
 
-    </style>
-    <script>
-            function openWin() {
-                window.open("gmap.html");
-            }
-    </script>
 
+
+    #display {
+
+        background-image: url("images/MARTA_TRain.jpg");
+        background-size: cover;
+        display: block;
+        width: 90%;
+        min-height: 700px;
+        margin-left: -220px;
+    }
+
+    .view{
+        background-color: black;
+        opacity: 0.8;
+        filter: alpha(opacity=80); /* For IE8 and earlier */
+        color: orange;
+        margin-left: 50px;
+        margin-top: 20px;
+        width: 400px;
+        line-height: 25px;
+        font-size: 20px;
+    }
+ 
+    </style>
+ 
   </head>
 
   <body>
@@ -112,7 +130,7 @@
       <!-- Compiled and minified JavaScript -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
-
+    
 
     <h>
         <nav>
@@ -139,63 +157,147 @@
             <p> We Connect You in Seconds </p>
         </header>
 
+    <div class="row" id="map">
+        <div class="col 16 offset-8 s8"></div>
+            <button id="goMap">View Map</button>
+        
+        
+    </div>
+
     <div class="row" id="select">
         <div class="input-field">
             <input type="text" id="Destination"> 
             <label class="active" for="name" id="label">Enter Your Destination</label>
             <button class="btn waves-effect waves-light" id="button" type="submit" name="action">GO
-                <i class="material-icons right">send</i>
-            </button>
+                <i class="material-icons right">send</i>          
+    
         </div>
     </div>
 
     <div class="row" id="mapDiv">
     <!-- This is the Map location -->
-
+           
     </div>
+    
+</div>
+
+<div class="row">
+<div class="col s9" id="display"> </div>
+
+<div class="col s3" id="displayInfo">
+
+        <div class="row" id="displayTemp">
+                <span id="tempFahr"></span>
+            </div>
+        <h1 id="station-input"></h1>
+        <div class="view" id="startpoint-display"></div>
+        <div class="view" id="line-display"></div>
+        <div class="view" id="time-display"></div>
+        <div class="view" id="direction-display"></div>
+        <div class="view" id="destination-display"></div>
 
 </div>
 
 </div>
 
-    <footer class="page-footer">
-        <div class="footercontainer">
+</div>
+
+   <footer class="page-footer">
+        <div class="container">
           <div class="row">
             <div class="col l6 s12">
-                <h5 class="white-text">Footer Content</h5>
+              <h5 class="white-text">Footer Content</h5>
+              <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
             </div>
             <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Links</h5>
-                <ul>
+              <h5 class="white-text">Links</h5>
+              <ul>
                 <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
                 <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                </ul>
-            </div>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+              </ul>
             </div>
           </div>
-        <div class="footer-copyright">
-            <div class="container">
-            © 2014 Copyright Text
-            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-            </div>
         </div>
+        <div class="footer-copyright" id="footer">
+          <div class="container" >
+          © 2014 Copyright Text
+          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+          </div>
+        </div>
+      </footer>
 
     </footer>
 
     <script>
+    
+    // Create map in an iframe when button is clicked.
+    $("button").on('click', function(e) {
+        e.preventDefault();
 
-  $('select').material_select('destroy');
+        $('<iframe />', {
+            name: 'frame',
+            id: 'goMap',
+            src: 'gmap.html',
+            align: "right",
+            height: "400px",
+            width: "405px",
+            scrolling: "no",
+            frameborder: "0"
+        }).appendTo('#map');
+    });  
+
+    // variables //
+
+    var select = $("#select");
+    var mainPage = $("#mainbody");
+    var newDiv = $("<div>")
+    var showMap = $("<button>");
+    showMap.addClass("map");
+    showMap.text("View Map");
 
 
-    var stations = ["Doraville", "Airport", "Five Points"];
+    function donotShow() {
+    $("#display").hide();
+    };
 
-//   stations.forEach((element, index) => {
-//     // console.log(id + ": " + element);
-//     var newOpt = $("<option>");
-//     newOpt.attr("value", element.toLowerCase());
-//     newOpt.text(element);
-//     $("#select").append(newOpt);
-//   });
+    $(document).ready(function () {
+    donotShow(); 
+    }); 
+
+     
+    $("#button").on("click", function(event) {
+    event.preventDefault();
+    select.hide();
+    mainPage.hide();
+    $("#display").show();
+
+    var station = $("#Destination").val().toLowerCase();
+           
+    var queryURL = "http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=56a19e24260049d499ff8ea90f306b0d";
+    console.log(station)
+    var newArray = [];
+    var settings = {
+        "async": true,
+        "url": "http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=56a19e24260049d499ff8ea90f306b0d",
+        "method": "GET"
+        }
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          for (var i = 0; i < response.length; i++) {
+            if (response[i]["STATION"].toLowerCase() !== station) {
+              newArray.push(response[i]);
+              $("#startpoint-display").text("Destination:    " + station);
+              $("#line-display").text("LINE: " + response[i]["LINE"]);
+              $("#time-display").text("ARRIVAL TIME: " + response[i]["NEXT_ARR"]);
+              $("#direction-display").text("BOUND: " + response[i]["DIRECTION"]);
+            //   $("#destination-display").text("Destination: " + response[i]["DESTINATION"]);
+            }
+          }
+        });
+      });
+     
 
   var APIKey = "79d67786e1c3ff629c3696cad8d187ed";
   var queryURL2 = "https://api.openweathermap.org/data/2.5/weather?q=atlanta&appid=" + APIKey;
@@ -228,13 +330,6 @@
     var initMap = $("<button>");
     initMap.addClass("map");
     initMap.text("View Map");
-    
-    $("#button").on("click", function() {
-    select.hide();
-    newDiv.append(openWin());
-    $("#mapDiv").append(newDiv);   
-                  
-    });
 
     </script>
 
