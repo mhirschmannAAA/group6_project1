@@ -159,7 +159,7 @@
 
     <div class="row" id="map">
         <div class="col 16 offset-8 s8"></div>
-            <button id="goMap">View Map</button>
+            <!-- <button id="goMap">View Map</button> -->
         
         
     </div>
@@ -233,19 +233,19 @@
     <script>
     
     // Create map in an iframe when button is clicked.
-    $("button").on('click', function(e) {
+    $("#button").on('click', function(e) {
         e.preventDefault();
 
         $('<iframe />', {
             name: 'frame',
             id: 'goMap',
             src: 'gmap.html',
-            align: "right",
+            align: "bottom",
             height: "400px",
             width: "405px",
             scrolling: "no",
             frameborder: "0"
-        }).appendTo('#map');
+        }).appendTo('#displayInfo');
     });  
 
     // variables //
