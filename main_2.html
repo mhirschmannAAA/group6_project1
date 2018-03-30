@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+
+    <title>Project1</title>
+    
+    <style>
+
+    body{
+      background-color:#C0C0C0;
+    }
+
+    #mainbody{
+       
+       background-image: url("images/atlanta.jpg");
+       background-size: cover;
+       display: block;
+       min-height: 700px;
+       width: 100%;
+    }
+
+    #select {
+      width: 300px;
+      margin-top: 300px;
+      margin-left: 10px;
+    }
+
+    #nav-mobile {
+    margin-left: 50px;
+    }
+
+   #logo {
+      margin-right: 50px;
+    }
+
+    #header {
+      text-align: center;
+      font-family:'Times New Roman', Times, serif;
+      line-height: 50px;
+      font-size: 50px;
+      padding-top: 40px;
+      color: aliceblue;
+    }
+
+    p {
+    text-align: center;
+    font-size: 25px;
+     color: aliceblue;
+    }
+
+    #displayTemp {
+    text-align:right;
+    font-size: 15px;
+    color: aliceblue;
+    padding-right: 40px;
+    padding-top: 20px;
+    font-weight: bold;
+    }
+
+    #label {
+        color: white;
+        font-size: 25px;
+    }
+
+    #Destination {
+        color: white;
+        font-size: 25px;
+        padding-top: 15px;
+    }
+
+    .page-footer{
+        background-color: darkgrey;
+    }
+
+    #footer {
+        background-color:orange;
+    }
+
+    #display {
+
+        background-image: url("images/MARTA_TRain.jpg");
+        background-size: cover;
+        display: block;
+        width: 90%;
+        min-height: 700px;
+        margin-left: -220px;
+    }
+
+
+    #displayScreen {
+        background-color: black;
+        opacity: 0.8;
+        filter: alpha(opacity=80); /* For IE8 and earlier */
+        color: #ffff00;
+        margin-left: 50px;
+        margin-top: 20px;
+        width: 400px;
+        height: 200px;
+        line-height: 25px;
+        font-size: 20px;
+    }
+
+    #map {
+        width: 600px;
+        height: 400px;
+        margin-top: 20px;
+        margin-left: 30px;
+
+    }
+
+    .view {
+        margin-bottom: 10px;
+        padding-top: 15px;
+        padding-left: 20px;
+      
+    }
+
+    /***** Automodal Style ******/
+
+    body {font-family: Arial, Helvetica, sans-serif;}
+    
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+    
+    /* Modal Content */
+    .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 80%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s
+    }
+    
+    /* Add Animation */
+    @-webkit-keyframes animatetop {
+        from {top:-300px; opacity:0} 
+        to {top:0; opacity:1}
+    }
+    
+    @keyframes animatetop {
+        from {top:-300px; opacity:0}
+        to {top:0; opacity:1}
+    }
+    
+    /* The Close Button */
+    .close {
+        color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    .modal-header {
+        padding: 2px 16px;
+        background-color: #5cb85c;
+        color: white;
+    }
+    
+    .modal-body {padding: 2px 16px;}
+    
+    .modal-footer {
+        padding: 2px 16px;
+        background-color: #5cb85c;
+        color: white;
+    }
+
+    /******** End of AutoModal ********/
+
+    </style>
+
+  </head>
+
+  <body>
+
+      <!--Link to Jquery -->
+      <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
+     
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+
+
+    <h>
+        <nav>
+            <div class="nav-wrapper #37474f blue-grey darken-3">
+                <a href="#" class="brand-logo right">C3</a>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="sass.html">Schedule</a></li>
+                <li><a href="badges.html">City Information</a></li>
+                <li><a href="collapsible.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+    </h>
+
+<div class="container">
+     
+    <div class="row" id="mainbody">
+        <div class="row" id="displayTemp">
+            <span id="tempFahr"></span>
+        </div>
+
+        <header class="row" id="header">
+            <h> Welcome to ATLANTA </h>
+            <p> We Connect You in Seconds </p>
+        </header>
+
+    <div class="row" id="select">
+
+        <label></label>
+        <select class="browser-default" id="selectStation">
+            <option value="" disabled selected> Find your Station </option>
+            <option value="1" > Five Points</option>
+            <option value="2" > Doraville</option>
+            <option value="3" > North Springs</option>
+            <option value="4" > Peachtree</option>
+            <option value="5" > Civic Center</option>
+        </select>                      
+
+        <div class="input-field">
+            <input type="text" id="Destination"> 
+            <label class="active" for="name" id="label">Enter Your Destination</label>
+            <button class="btn waves-effect waves-light" id="button" type="submit" name="action">GO
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<div class="row" id="displayPage">
+
+<div class="col s9" id="display">  </div>
+
+<div class="col s3" id="displayInfo">
+
+        <div class="row" id="displayTemp">
+                <span id="tempFahr"></span>
+            </div>
+        <h1 id="station-input"></h1>
+
+        <div id="displayScreen"> 
+            <div class="view" id="startpoint-display"></div>
+            <div class="view" id="line-display"></div>
+            <div class="view" id="time-display"></div>
+            <div class="view" id="direction-display"></div>
+            <div id="destination-display"></div>
+      
+        </div>  
+
+        <div id="map"> </div>
+   <!--- Animated Modal with Header and Footer !-->
+    
+        <!-- Trigger/Open The Modal -->
+        <button id="myBtn">Open Modal</button>
+        
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+        
+          <!-- Modal content -->
+          <div class="modal-content">
+            <div class="modal-header">
+              <span class="close">&times;</span>
+              <h2>Modal Header</h2>
+            </div>
+            <div class="modal-body">
+              <p>Some text in the Modal Body</p>
+              <p>Some other text...</p>
+            </div>
+            <div class="modal-footer">
+              <h3>Modal Footer</h3>
+            </div>
+          </div>
+        
+        </div>
+
+        <!--- End of the Animated Modal with Header and Footer !-->
+        
+        </div>
+        </div>
+
+    </div>
+</div>
+
+   <footer class="page-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text">Footer Content</h5>
+              <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+              <h5 class="white-text">Links</h5>
+              <ul>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright" id="footer">
+          <div class="container" >
+          © 2014 Copyright Text
+          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+          </div>
+        </div>
+      </footer>
+
+    </footer>
+
+    <script>
+
+    // variables //
+
+    var select = $("#select");
+    var mainPage = $("#mainbody");
+    var newDiv = $("<div>")
+    var showMap = $("<button>");
+    showMap.addClass("map");
+    showMap.text("View Map");
+
+
+    function donotShow() {
+    $("#displayPage").hide();
+    };
+
+    $(document).ready(function () {
+    donotShow(); 
+    }); 
+
+    $( "select" )
+  .change(function() {
+   console.log("whatever");
+   var a = $("#selectStation option:selected").text();
+   console.log(a);
+    select.hide();
+    mainPage.hide();
+    $("#displayPage").show();
+
+    // map //
+    $('<iframe />', {
+            name: 'frame',
+            id: 'goMap',
+            src: 'gmap.html',
+            align: "bottom",
+            height: "400px",
+            width: "405px",
+            scrolling: "no",
+            frameborder: "0"
+        }).appendTo('#map');
+
+    // end of the map //
+
+    var station = $("#Destination").val().toLowerCase();
+           
+    var queryURL = "http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=56a19e24260049d499ff8ea90f306b0d";
+    console.log(station)
+    var newArray = [];
+    var settings = {
+        "async": true,
+        "url": "http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=56a19e24260049d499ff8ea90f306b0d",
+        "method": "GET"
+        }
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          for (var i = 0; i < response.length; i++) {
+            if (response[i]["STATION"].toLowerCase() !== station) {
+              newArray.push(response[i]);
+              $("#startpoint-display").text("Destination:    " + station);
+              $("#line-display").text("LINE: " + response[i]["LINE"]);
+              $("#time-display").text("ARRIVAL TIME: " + response[i]["NEXT_ARR"]);
+              $("#direction-display").text("BOUND: " + response[i]["DIRECTION"]);
+            //   $("#destination-display").text("Destination: " + response[i]["DESTINATION"]);
+            }
+          }
+        });
+ 
+ // End of the Get the modal //***** 
+ var fire  = station;
+        
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDPsmvtjqmhPhS1NkKo7Vbx6uRhrVP31K4",
+            authDomain: "group-project6.firebaseapp.com",
+            databaseURL: "https://group-project6.firebaseio.com",
+            projectId: "group-project6",
+            storageBucket: "",
+            messagingSenderId: "956097073978"
+        };
+
+        firebase.initializeApp(config);
+        var searchRef = firebase.database().ref("/search");
+        searchRef.push({
+            fire: fire,
+            searchedAt: firebase.database.ServerValue.TIMESTAMP
+        }).then(
+            console.log (fire)
+        );
+    
+      });
+
+    
+      // Create map in an iframe when button is clicked.
+     
+    //   var mapButton=$("<button>");
+
+   
+  var APIKey = "79d67786e1c3ff629c3696cad8d187ed";
+  var queryURL2 = "https://api.openweathermap.org/data/2.5/weather?q=atlanta&appid=" + APIKey;
+
+  $.ajax({
+      url: queryURL2,
+      method: "GET"
+    }).then(function(response) {
+
+      // Create CODE HERE to Log the queryURL
+      console.log(queryURL2);
+      // Create CODE HERE to log the resulting object
+      console.log(response);
+      // Create CODE HERE to transfer content to HTML
+      $(".city").text(response.name);
+      $(".wind").text(response.wind.speed);
+      $(".humidity").text(response.main.humidity);
+
+      // Create CODE HERE to calculate the temperature (converted from Kelvin)
+      console.log(response.main.temp);
+      var temp = response.main.temp;
+      var fahr = (temp-273.15)*1.8 + 32
+      console.log(fahr);
+      $("#tempFahr").text("Current Temp " + Math.round(fahr) + " 'F");
+
+    });
+
+
+    // Get the modal //***** 
+        var modal = document.getElementById('myModal');
+    
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+// Add CommentCollapse  
+
+   
+
+
+
+    </script>
+ 
+    </script>
+
+  </body>
+</html>
