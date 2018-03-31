@@ -34,6 +34,11 @@
        width: 100%;
     }
 
+    .brand-logo{
+        height: 63px;
+        
+    }
+
     #select {
       width: 300px;
       margin-top: 300px;
@@ -152,7 +157,7 @@
     /* Modal Content */
     .modal-content {
         position: relative;
-        background-color: #fefefe;
+        background-color:#039be5;
         margin: auto;
         padding: 0;
         border: 1px solid #888;
@@ -193,14 +198,19 @@
     .modal-header {
         padding: 2px 16px;
         background-color: #5cb85c;
-        color: white;
+        color: black;
+        text-align: center;
     }
     
-    .modal-body {padding: 2px 16px;}
+    .modal-body {
+        padding: 2px 16px;
+        background-color:#263238;
+        color: darkgray;
+        }
     
     .modal-footer {
         padding: 2px 16px;
-        background-color: #5cb85c;
+        background-color: #546e7a;
         color: white;
     }
 
@@ -224,11 +234,11 @@
     <h>
         <nav>
             <div class="nav-wrapper #37474f blue-grey darken-3">
-                <a href="#" class="brand-logo right">C3</a>
+                <img src="images/C3.png" class="brand-logo right"></a>
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a href="sass.html">Schedule</a></li>
-                <li><a href="badges.html">City Information</a></li>
-                <li><a href="collapsible.html">Contact Us</a></li>
+                <li><a target="_blank" href="http://www.itsmarta.com/train-stations-and-schedules.aspx">Marta Schedule</a></li>
+                <li><a target="_blank" href="https://www.atlantaga.gov/visitors">City Information</a></li>
+                <li><a target="_blank" href="contact.html">Contact Us</a></li>
                 </ul>
             </div>
         </nav>
@@ -258,14 +268,8 @@
             <option value="5" > Civic Center</option>
         </select>                      
 
-        <div class="input-field">
-            <input type="text" id="Destination"> 
-            <label class="active" for="name" id="label">Enter Your Destination</label>
-            <button class="btn waves-effect waves-light" id="button" type="submit" name="action">GO
-                <i class="material-icons right">send</i>
-            </button>
+      
         </div>
-    </div>
 
 </div>
 
@@ -286,14 +290,13 @@
             <div class="view" id="time-display"></div>
             <div class="view" id="direction-display"></div>
             <div id="destination-display"></div>
-      
         </div>  
 
         <div id="map"> </div>
    <!--- Animated Modal with Header and Footer !-->
     
         <!-- Trigger/Open The Modal -->
-        <button id="myBtn">Open Modal</button>
+        <button id="myBtn">Navigate ATLANTA</button>
         
         <!-- The Modal -->
         <div id="myModal" class="modal">
@@ -302,11 +305,11 @@
           <div class="modal-content">
             <div class="modal-header">
               <span class="close">&times;</span>
-              <h2>Modal Header</h2>
+              <h2>Welcome to ATLANTA</h2>
             </div>
-            <div class="modal-body">
-              <p>Some text in the Modal Body</p>
-              <p>Some other text...</p>
+            <div class="modal-body" id="de">
+              <p> Like what you see? </p>
+              <p> Contact C3 for your App needs </p>
             </div>
             <div class="modal-footer">
               <h3>Modal Footer</h3>
@@ -323,31 +326,36 @@
     </div>
 </div>
 
-   <footer class="page-footer">
+<footer class="page-footer">
         <div class="container">
           <div class="row">
             <div class="col l6 s12">
-              <h5 class="white-text">Footer Content</h5>
-              <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+              <h5 class="white-text">Let C3 guide you around Atlanta.</h5>
+              <p class="grey-text text-lighten-4"></p>
             </div>
             <div class="col l4 offset-l2 s12">
               <h5 class="white-text">Links</h5>
               <ul>
-                <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                <li><a target="_blank" class="grey-text text-lighten-3" 
+                href="https://autoclubsouth.aaa.com/?zip=32773&devicecd=PC!">AAA</a></li>
+                <li><a target="_blank" class="grey-text text-lighten-3" 
+                href="https://www.atlconventioncenter.com/">Atlanta Convention Center</a></li>
+                <li><a target="_blank" class="grey-text text-lighten-3" 
+                href="http://www.itsmarta.com/">Marta</a></li>
+                <li><a target="_blank" class="grey-text text-lighten-3" href="https://www.atlantaga.gov/visitors">Tourism</a></li>
               </ul>
             </div>
           </div>
         </div>
         <div class="footer-copyright" id="footer">
           <div class="container" >
-          © 2014 Copyright Text
-          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+          © 2018 Group 6 All Rights Reserved.
+          <a class="grey-text text-lighten-4 right" href="#!"></a>
           </div>
         </div>
       </footer>
+
+    </footer>
 
     </footer>
 
@@ -394,7 +402,7 @@
 
     // end of the map //
 
-    var station = $("#Destination").val().toLowerCase();
+    var station = a;
            
     var queryURL = "http://developer.itsmarta.com/RealtimeTrain/RestServiceNextTrain/GetRealtimeArrivals?apikey=56a19e24260049d499ff8ea90f306b0d";
     console.log(station)
@@ -409,7 +417,7 @@
           for (var i = 0; i < response.length; i++) {
             if (response[i]["STATION"].toLowerCase() !== station) {
               newArray.push(response[i]);
-              $("#startpoint-display").text("Destination:    " + station);
+              $("#startpoint-display").text("Destination: " + a);
               $("#line-display").text("LINE: " + response[i]["LINE"]);
               $("#time-display").text("ARRIVAL TIME: " + response[i]["NEXT_ARR"]);
               $("#direction-display").text("BOUND: " + response[i]["DIRECTION"]);
@@ -420,7 +428,7 @@
  
  // End of the Get the modal //***** 
  var fire  = station;
-        
+
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyDPsmvtjqmhPhS1NkKo7Vbx6uRhrVP31K4",
@@ -437,7 +445,7 @@
             fire: fire,
             searchedAt: firebase.database.ServerValue.TIMESTAMP
         }).then(
-            console.log (fire)
+            console.log(fire)
         );
     
       });
@@ -502,10 +510,6 @@
     }
 
 // Add CommentCollapse  
-
-   
-
-
 
     </script>
  
